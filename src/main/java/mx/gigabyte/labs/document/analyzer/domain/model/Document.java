@@ -2,17 +2,17 @@ package mx.gigabyte.labs.document.analyzer.domain.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Data
 @NoArgsConstructor
@@ -22,6 +22,10 @@ public class Document {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
+  @ManyToOne
+  @JoinColumn(name = "profile_id", nullable = false)
+  private User profile;
+
   @Column(name = "name", nullable = false)
   private String name;
 
@@ -29,15 +33,7 @@ public class Document {
   @Column(name = "document_type", nullable = false, length = 50)
   private DocumentType documentType;
 
-  @Column(name = "is_active")
-  private boolean isActive;
-
-  @CreatedDate
-  @Column(name = "created_at", updatable = false)
-  private LocalDateTime createdAt;
-
-  @LastModifiedDate
-  @Column(name = "updated_at")
-  private LocalDateTime updatedAt;
+  @Embedded
+  private AuditRecord auditRecord;
 
 }

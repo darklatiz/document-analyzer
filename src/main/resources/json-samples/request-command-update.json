@@ -1,10 +1,9 @@
 {
-  "documents" : [
-    {
-      "name": "statement-feb.pdf",
-      "type": "STATEMENT",
-      "mime_type": "pdf",
-      "category": "FINANZAS"
-    }
-  ]
+  "user_info": {
+    "name": "Luis",
+    "last_name": "STATEMENT",
+    "email": "pdf",
+    "user_name": "",
+    "user_name_same_as_email": false
+  }
 }
