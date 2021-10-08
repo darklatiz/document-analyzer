@@ -7,12 +7,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @NoArgsConstructor
 @Entity
-public class Document {
+@Table(name = "user_profile")
+public class User {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  private long profileId;
+  private String name;
+  private String lastName;
+  private String userName;
+  private String email;
+
 }

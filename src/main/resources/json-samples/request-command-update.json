@@ -1,0 +1,10 @@
+{
+  "documents" : [
+    {
+      "name": "statement-feb.pdf",
+      "type": "STATEMENT",
+      "mime_type": "pdf",
+      "category": "FINANZAS"
+    }
+  ]
+}
