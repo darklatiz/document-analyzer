@@ -1,19 +1,16 @@
 package mx.gigabyte.labs.document.analyzer.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import java.util.Optional;
-
 @Configuration
-@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
+//@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
+@EnableJpaAuditing
 public class AuditConfiguration {
 
-  @Bean
-  public AuditorAware<String> auditorProvider() {
-    return () -> Optional.of("Luigi-TheGod");
-  }
+//  @Bean
+//  public AuditorAware<String> auditorProvider() {
+//    return () -> Optional.of("Luigi-TheGod");
+//  }
 
 }

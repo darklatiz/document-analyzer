@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+import javax.validation.Validator;
 import java.util.List;
 
 @RestController
@@ -21,14 +23,17 @@ import java.util.List;
 public class DocumentController {
 
   private DocumentAnalyzerApplicationService documentAnalyzerApplicationService;
+  private Validator validator;
 
   @Autowired
-  public DocumentController(DocumentAnalyzerApplicationService documentAnalyzerApplicationService) {
+  public DocumentController(DocumentAnalyzerApplicationService documentAnalyzerApplicationService, Validator validator) {
     this.documentAnalyzerApplicationService = documentAnalyzerApplicationService;
+    this.validator = validator;
   }
 
   @PostMapping(value = "bootstrap", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-  public @ResponseBody DocumentResponse create(@RequestPart("user_info") BootstrapCommand documentCommand, @RequestPart("file") List<MultipartFile> files) {
+  public @ResponseBody DocumentResponse create(@RequestPart("user_info") @Valid BootstrapCommand documentCommand, @RequestPart("file") List<MultipartFile> files) {
+//    var violations = this.validator.validate(documentCommand);
     log.info(documentCommand);
     files.forEach(log::info);
 
