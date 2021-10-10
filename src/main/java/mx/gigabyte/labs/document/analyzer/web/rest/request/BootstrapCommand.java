@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 public class BootstrapCommand {
 
   @JsonProperty("user_info")
-  @NotNull
+  @NotNull(message = "user_info should not be null")
   @Valid
   private UserInfo userInfo;
 

@@ -2,10 +2,10 @@ package mx.gigabyte.labs.document.analyzer.domain;
 
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+import mx.gigabyte.labs.document.analyzer.domain.model.Document;
 import mx.gigabyte.labs.document.analyzer.domain.model.User;
 import mx.gigabyte.labs.document.analyzer.domain.model.record.UserRecord;
 import mx.gigabyte.labs.document.analyzer.factory.DocumentFactory;
-import mx.gigabyte.labs.document.analyzer.repository.UserRepository;
 import mx.gigabyte.labs.document.analyzer.web.rest.request.BootstrapCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class DocumentAnalyzerApplicationService {
     this.documentFactory = documentFactory;
   }
 
-  public void boostrap(BootstrapCommand bootstrapCommand, List<MultipartFile> files) {
+  public Document boostrap(BootstrapCommand bootstrapCommand, List<MultipartFile> files) {
     log.info("Bootstrapping Documents...");
     UserRecord userRecord = new UserRecord(
       bootstrapCommand.getUserInfo().getName(),
@@ -37,7 +37,9 @@ public class DocumentAnalyzerApplicationService {
 
     User profile = documentFactory.createProfile(userRecord);
     documentFactory.createDocuments(profile, files);
-
+    return Document.builder()
+      .profile(profile)
+      .build();
   }
 
 }
