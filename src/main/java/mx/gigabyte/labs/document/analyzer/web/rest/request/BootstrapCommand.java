@@ -15,7 +15,7 @@ public class BootstrapCommand {
   @Data
   @NoArgsConstructor
   @JsonIgnoreProperties
-  private static class UserInfo {
+  public static class UserInfo {
 
     @JsonProperty("name")
     private String name;

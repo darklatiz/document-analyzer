@@ -2,7 +2,7 @@ package mx.gigabyte.labs.document.analyzer.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mx.gigabyte.labs.document.analyzer.domain.ObjectMapperFactory;
-import mx.gigabyte.labs.document.analyzer.domain.model.DocumentType;
+import mx.gigabyte.labs.document.analyzer.domain.model.enums.DocumentType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;

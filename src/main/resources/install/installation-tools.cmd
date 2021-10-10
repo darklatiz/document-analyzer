@@ -1,0 +1,1 @@
+https://lindevs.com/install-tesseract-ocr-on-ubuntu/

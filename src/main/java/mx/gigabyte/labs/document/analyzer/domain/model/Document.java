@@ -1,10 +1,12 @@
 package mx.gigabyte.labs.document.analyzer.domain.model;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import mx.gigabyte.labs.document.analyzer.domain.model.enums.DocumentType;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,11 +15,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @Entity
-public class Document {
+public class Document extends Auditable<String> {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
@@ -30,10 +34,23 @@ public class Document {
   private String name;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "document_type", nullable = false, length = 50)
+  @Column(name = "document_type")
   private DocumentType documentType;
 
-  @Embedded
-  private AuditRecord auditRecord;
-
+  @Builder
+  public Document(boolean isActive,
+                  LocalDateTime createdAt,
+                  LocalDateTime updatedAt,
+                  String createdBy,
+                  String modifiedBy,
+                  long id,
+                  User profile,
+                  String name,
+                  DocumentType documentType) {
+    super(isActive, createdAt, updatedAt, createdBy, modifiedBy);
+    this.id = id;
+    this.profile = profile;
+    this.name = name;
+    this.documentType = documentType;
+  }
 }
