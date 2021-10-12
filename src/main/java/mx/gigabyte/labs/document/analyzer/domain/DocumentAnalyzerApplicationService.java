@@ -2,9 +2,10 @@ package mx.gigabyte.labs.document.analyzer.domain;
 
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
-import mx.gigabyte.labs.document.analyzer.domain.model.Document;
-import mx.gigabyte.labs.document.analyzer.domain.model.User;
+import mx.gigabyte.labs.document.analyzer.domain.exception.DocumentException;
+import mx.gigabyte.labs.document.analyzer.domain.model.record.BootstrapRecord;
 import mx.gigabyte.labs.document.analyzer.domain.model.record.UserRecord;
+
 import mx.gigabyte.labs.document.analyzer.factory.DocumentFactory;
 import mx.gigabyte.labs.document.analyzer.web.rest.request.BootstrapCommand;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +19,16 @@ import java.util.List;
 @Getter
 public class DocumentAnalyzerApplicationService {
 
-  private DocumentFactory documentFactory;
+  private final DocumentFactory documentFactory;
 
   @Autowired
   public DocumentAnalyzerApplicationService(DocumentFactory documentFactory) {
     this.documentFactory = documentFactory;
   }
 
-  public Document boostrap(BootstrapCommand bootstrapCommand, List<MultipartFile> files) {
+  public BootstrapRecord boostrap(BootstrapCommand bootstrapCommand, List<MultipartFile> files) throws DocumentException {
     log.info("Bootstrapping Documents...");
+
     UserRecord userRecord = new UserRecord(
       bootstrapCommand.getUserInfo().getName(),
       bootstrapCommand.getUserInfo().getLastName(),
@@ -35,11 +37,7 @@ public class DocumentAnalyzerApplicationService {
       bootstrapCommand.getUserInfo().isUserNameSameAsEmail()
     );
 
-    User profile = documentFactory.createProfile(userRecord);
-    documentFactory.createDocuments(profile, files);
-    return Document.builder()
-      .profile(profile)
-      .build();
+    return documentFactory.bootStrap(userRecord, files);
   }
 
 }

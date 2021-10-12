@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import mx.gigabyte.labs.document.analyzer.domain.model.enums.DocumentType;
+
+import java.util.List;
 
 @Data
 @JsonIgnoreProperties
@@ -23,6 +26,10 @@ public class DocumentResponse {
 
     @JsonProperty("user_data")
     private UserData userData;
+
+    @JsonProperty("documents")
+    private List<DocumentData> documentDataList;
+
   }
 
   @NoArgsConstructor
@@ -30,6 +37,7 @@ public class DocumentResponse {
   @Data
   @Builder
   public static class UserData{
+    private long id;
     private String name;
 
     @JsonProperty("user_name")
@@ -38,4 +46,17 @@ public class DocumentResponse {
     private String email;
   }
 
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Data
+  @Builder
+  public static class DocumentData {
+    private long id;
+
+    @JsonProperty("document_type")
+    private DocumentType documentType;
+
+    @JsonProperty("file_name")
+    private String fileName;
+  }
 }

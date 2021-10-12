@@ -37,6 +37,9 @@ public class Document extends Auditable<String> {
   @Column(name = "document_type")
   private DocumentType documentType;
 
+  @Column(name = "mime_type")
+  private String mimeType;
+
   @Builder
   public Document(boolean isActive,
                   LocalDateTime createdAt,
@@ -46,11 +49,34 @@ public class Document extends Auditable<String> {
                   long id,
                   User profile,
                   String name,
-                  DocumentType documentType) {
+                  DocumentType documentType,
+                  String mimeType) {
     super(isActive, createdAt, updatedAt, createdBy, modifiedBy);
     this.id = id;
     this.profile = profile;
     this.name = name;
     this.documentType = documentType;
+    this.mimeType = mimeType;
+  }
+
+  /**
+   * Uploads a document to the server
+   */
+  public void save() {
+
+  }
+
+  /**
+   * Extracts metadata
+   */
+  public void extractMetadata() {
+
+  }
+
+  /**
+   * Sends the File to the processing QUEUE
+   */
+  public void sendToQueue() {
+
   }
 }

@@ -34,7 +34,6 @@ public class DocumentController {
   @PostMapping(value = "bootstrap", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
   public @ResponseBody DocumentResponse create(@RequestPart("user_info") @Valid BootstrapCommand documentCommand, @RequestPart("file") List<MultipartFile> files) {
     log.info(documentCommand);
-    files.forEach(log::info);
     return this.documentResponseMapper.toDocumentResponse(documentAnalyzerApplicationService.boostrap(documentCommand, files));
   }
 

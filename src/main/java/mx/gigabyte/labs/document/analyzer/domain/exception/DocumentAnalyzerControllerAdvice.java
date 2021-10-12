@@ -48,4 +48,18 @@ public class DocumentAnalyzerControllerAdvice {
     return errorResponse;
   }
 
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  @ExceptionHandler(DocumentException.class)
+  @ResponseBody
+  public ErrorResponse handleDocumentException(DocumentException documentException) {
+    ErrorResponse errorResponse = ErrorResponse.builder().build();
+    errorResponse.setErrorCode(1002);
+    errorResponse.setMessageError("Document Exception");
+    errorResponse.setErrors(new ArrayList<>());
+    errorResponse.getErrors().add(Error.builder()
+      .issue("We have some problems fulfilling your request, Some documents were not saved : ".concat(documentException.getLocalizedMessage()))
+      .build());
+    return errorResponse;
+  }
+
 }
