@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -32,12 +33,12 @@ public class DocumentDomainService {
         Files.createDirectory(root);
       }
     } catch (IOException e) {
-      throw new DocumentException(e);
+      throw new DocumentException(e, DocumentException.IO_ERROR);
     }
   }
 
   public List<Document> save(List<MultipartFile> documents) {
-    return null;
+    return Collections.emptyList();
   }
 
   public Document save(MultipartFile file, User profile) throws DocumentException {
@@ -65,7 +66,7 @@ public class DocumentDomainService {
 
       return document;
     } catch (Exception e) {
-      throw new DocumentException(e);
+      throw new DocumentException(e, DocumentException.IO_ERROR);
     }
   }
 }
